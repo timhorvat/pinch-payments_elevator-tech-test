@@ -145,53 +145,53 @@ bool WaitUntilFloorAndDirection(Elevator e, int targetFloor, Direction dir, int 
     return false;
 }
 
-void RunTest(Elevator e, int test)
+void RunTest(Elevator elevator, int test)
 {
     switch (test)
     {
         // test 1: 'Passenger summons lift on the ground floor. Once in, choose to go to level 5.'
         case 1:
-            e.HallCall(0, Direction.UP);
-            WaitUntilFloorAndDirection(e, 0, Direction.UP, 15000);
-            e.CarCall(5);
+            elevator.HallCall(0, Direction.UP);
+            WaitUntilFloorAndDirection(elevator, 0, Direction.UP, 15000);
+            elevator.CarCall(5);
             break;
 
         // test 2: 'Passenger summons lift on level 6 to go down. Passenger on level 4 summons the lift to go down. They both choose L1.'
         case 2:
-            e.HallCall(6, Direction.DOWN);
-            e.HallCall(4, Direction.DOWN);
-            WaitUntilFloorAndDirection(e, 6, Direction.DOWN, 25000);
-            e.CarCall(1);
-            WaitUntilFloorAndDirection(e, 4, Direction.DOWN, 25000);
-            e.CarCall(1);
+            elevator.HallCall(6, Direction.DOWN);
+            elevator.HallCall(4, Direction.DOWN);
+            WaitUntilFloorAndDirection(elevator, 6, Direction.DOWN, 25000);
+            elevator.CarCall(1);
+            WaitUntilFloorAndDirection(elevator, 4, Direction.DOWN, 25000);
+            elevator.CarCall(1);
             break;
 
         // test 3: 'P1 summons up from L2. P2 summons down from L4. P1 -> L6. P2 -> Ground.'
         case 3:
-            e.HallCall(2, Direction.UP);
-            e.HallCall(4, Direction.DOWN);
-            WaitUntilFloorAndDirection(e, 2, Direction.UP, 25000);
-            e.CarCall(6);
+            elevator.HallCall(2, Direction.UP);
+            elevator.HallCall(4, Direction.DOWN);
+            WaitUntilFloorAndDirection(elevator, 2, Direction.UP, 25000);
+            elevator.CarCall(6);
             // Later, when coming down, pick up P2 then set destination
-            WaitUntilFloorAndDirection(e, 4, Direction.DOWN, 35000);
-            e.CarCall(0);
+            WaitUntilFloorAndDirection(elevator, 4, Direction.DOWN, 35000);
+            elevator.CarCall(0);
             break;
 
         // test 4: 'P1 up from Ground -> L5. P2 down from L4. P3 down from L10. P2 and P3 -> Ground.'
         case 4:
-            e.HallCall(0, Direction.UP);
-            WaitUntilFloorAndDirection(e, 0, Direction.UP, 15000);
-            e.CarCall(5);
+            elevator.HallCall(0, Direction.UP);
+            WaitUntilFloorAndDirection(elevator, 0, Direction.UP, 15000);
+            elevator.CarCall(5);
 
-            e.HallCall(4, Direction.DOWN);
-            e.HallCall(10, Direction.DOWN);
+            elevator.HallCall(4, Direction.DOWN);
+            elevator.HallCall(10, Direction.DOWN);
 
             // The car will ignore Down calls while going up, then reverse and service them
-            WaitUntilFloorAndDirection(e, 10, Direction.DOWN, 40000);
-            e.CarCall(0);
+            WaitUntilFloorAndDirection(elevator, 10, Direction.DOWN, 40000);
+            elevator.CarCall(0);
 
-            WaitUntilFloorAndDirection(e, 4, Direction.DOWN, 30000);
-            e.CarCall(0);
+            WaitUntilFloorAndDirection(elevator, 4, Direction.DOWN, 30000);
+            elevator.CarCall(0);
             break;
     }
 

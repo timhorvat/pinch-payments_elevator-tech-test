@@ -29,8 +29,8 @@ namespace pinch_payments_tech_test
             Console.WriteLine("Initialising Elevator.");
             _currentFloor = 0;
 
-            _travelTime = 2;
-            _pendingTime = 5;
+            _travelTime = 1;
+            _pendingTime = 3;
 
             _upFloors = [];
             _downFloors = [];
